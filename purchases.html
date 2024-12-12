@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,7 +73,7 @@
     }
 
     .row footer {
-      text-align: right;
+      text-align: left;
       font-size: 0.9rem;
       color: var(--primary-color);
     }
@@ -150,15 +151,6 @@
         /* Style for Desktop */
         @media (min-width: 769px) {
 
-            /* .category-text {
-                display: none !important;
-            } */
-
-    .showHide {
-            display: block !important;
-        }
-
-
       .row {
         flex-direction: row;
         align-items: center;
@@ -173,24 +165,39 @@
         border-right: 1px solid var(--border-color);
       }
 
-      .row footer {
-        border-right: none;
-        text-align: center;
-      }
-      img {
+            .row footer {
+                border-right: none;
+                text-align: center;
+            }
+
+            .purchase-text {
+                display: none !important;
+            }
+
+            .content {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-evenly;
+            }
+
+            img {
                 border-radius: 50%;
                 width: 60px;
                 height: 60px;
             }
-    }
+
+            /* .description {
+                width: 250px;
+            } */
+        }
 
         @media (max-width: 768px) {
             .extra-info {
                 display: none;
             }
-            .description {
-                width: 300px;
-            }
+            /* .description {
+                width: 250px;
+            } */
             .category-text, .purchase-date-long {
                 display: none !important;
             }
