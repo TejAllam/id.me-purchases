@@ -95,7 +95,8 @@
     <!-- Functionality -->
     <script>
 
-function Purchase(id, location, purchaseDate, category, description, price, name) {
+        // Purchase order constructor 
+        function Purchase(id, location, purchaseDate, category, description, price, name) {
             // Expecting this to only be a number
             this.id = Number(id);
             // Not sure why its named location, maybe location of image to display ? 
@@ -103,19 +104,24 @@ function Purchase(id, location, purchaseDate, category, description, price, name
             // Sanitize for extra precaution
             this.location = location;
             // Ensure date is correctly formatted, else provide fallback
-            this.purchaseDate = new Date(purchaseDate).toDateString();
-            // Can verify if any is out within scope of expected elements  
+            this.purchaseDateShort = new Date(purchaseDate)
+                .toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+            this.purchaseDateLong = new Date(purchaseDate)
+                .toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' });
+            // Can verify if any is within scope of expected elements  
             this.category = category;
-            // Length limitations ? 
-            this.description = description;
-            // Convert to country specific currency, in this case US 
-            this.price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+            // Using htmlDecode to handle ASCII values TODO Length limitations ? 
+            this.description = htmlDecode(description);
+            // Convert to country specific currency 
+            this.price = new Intl.NumberFormat('en-US', 
+                { style: 'currency', currency: 'USD', 
+                maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(price / 100);
             // Verify only text is displayed  
             this.name = name.toString();
-
         }
 
         // Fetch JSON Data from external source
+        // TODO - Default time out if taking long ? 
         async function fetchData() {
             try {
                 const purchaseData = await fetch('https://storage.googleapis.com/marketplace-prod-7728-shop-cdn-e5e2/interview/data.json');
@@ -124,6 +130,7 @@ function Purchase(id, location, purchaseDate, category, description, price, name
                 const categoryList = new Set();
                 const container = document.getElementById('container');
                 data.forEach(purchase => {
+
                     console.info(purchase);
 
                     categoryList.add(purchase.category);
@@ -136,6 +143,8 @@ function Purchase(id, location, purchaseDate, category, description, price, name
             }
         }
 
+        // Card Template - 
+        // Singular load , writes to HTML once data is received 
         function createCard(purchase) {
             const cardHTML = `
                 <article class="card">
@@ -162,9 +171,9 @@ function Purchase(id, location, purchaseDate, category, description, price, name
             container.appendChild(card);
         }
 
-
         // Initiate async call
-        fetchData()
+        fetchData();
+
     </script>
 </head>
 <body>
