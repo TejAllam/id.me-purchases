@@ -146,29 +146,31 @@
         // Card Template - 
         // Singular load , writes to HTML once data is received 
         function createCard(purchase) {
-            const cardHTML = `
-                <article class="card">
+            const cardHtml = `
+                <article tabindex="0" class="card row" id=${purchase.id}">
                     <header class="card-header">
-                        <img src="${purchase.location}" alt="${purchase.name}" style="width: 60px; height: 65px;" defer>
+                        <img src="${purchase.location}" alt="${purchase.name}">
                         <h2 class="capitalize-first-letter">${purchase.name}</h2>
-                        <p>${purchase.price}</p>
+                        <p class="push-right">${purchase.price}</p>
                     </header>
                     <div class="content">
-                        <p>${purchase.description}</p>
+                        <div class="category-text button-like-text ${purchase.category}">${purchase.category}</div>
+                        <div class="description">${purchase.description}</div>
                     </div>
-                    <footer>${purchase.purchaseDate}</footer>
+                    <footer class="footer">
+                        <div class="purchase-text">
+                            <p><strong>Purchase Date</strong></p>
+                            <p>${purchase.purchaseDateShort}</p>
+                        </div>
+                        <div class="purchase-date-long">
+                            <p>${purchase.purchaseDateLong}</p>
+                        </div>
+                    </footer>
                 </article>
             `;
 
-            // Create a DOM element from the template HTML string
-            const template = document.createElement('template');
-            template.innerHTML = cardHTML.trim();
-            
-            const card = template.content.firstChild;
-
-            // Append card to container
             const container = document.getElementById('container');
-            container.appendChild(card);
+            container.insertAdjacentHTML('beforeend', cardHtml);
         }
 
         // Helper to handle ASCII
