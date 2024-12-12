@@ -1,36 +1,46 @@
 # id.me-purchases
 
-ID.me Take Home Exercise
-
 Link -> https://tejallam.github.io/id.me-purchases/
 
-
-Desktop Layout :
-
-![image](https://github.com/user-attachments/assets/54682306-0705-4685-bd32-a59afdfa4a4d)
-
-
-Mobile Layout :
+## Mobile Layout :
 
 ![image](https://github.com/user-attachments/assets/aef168fc-4551-4e85-89f8-e09918e55e41)
 
 
-Analysis : 
+## Desktop Layout :
 
-// Design
-Went with native HTML/CSS/JS \
-Didn't use any Frameworks, could have used Angular but didn't want to complicate. \
-Started with Table syntax but realized issues from an earlier project, went with mobile first using the Card layout. \
-Uses Media queries to display either in Mobile or Desktop based on dimensions (  > 769px as deciding factor). \
-Fetches content using Fetch API \
-Once data is retrieved, it should be preprocessed to ensure confirmity. \
-Content is written to DOM and images are fetched in order. \
+![image](https://github.com/user-attachments/assets/54682306-0705-4685-bd32-a59afdfa4a4d)
 
 
+### Analysis : 
+
+  - Went with native HTML/CSS/JS
+  - Didn't use any Frameworks, could have used Angular but didn't want to complicate.
+  - Started with Table syntax but realized issues from an earlier project, went with mobile first using the Card layout.
+  - Uses Media queries to display either in Mobile or Desktop based on dimensions (  > 769px as deciding factor).
+  - Made use of ' flex ' , familiar from prior work.
+  - Data is fetched only once for both Mobile and Layout when resized.
+  - Fetches content using Fetch API
+  - Once data is retrieved, it should be preprocessed to ensure confirmity.
+  - Content is written to DOM and images are fetched in order. 
+
+
+### Improvements : 
+
+  - CSS, could have minified and organized styles.
+  - JS Functionality only 3 major logic blocks. Kept it simple, but tests would have helped.
+  - Table column header alignment, didn't have time but could have used CSS Grid if it would help.
+  - 'Description' and 'Category' columns are not in alignment, didn't get time to iterate table layout design.
+  - Went with some primary colors for the 'Category' section, should have ensured these are within acceptable Accessibility contrast ratios.
+  
+  
+  
 
 
 
-Links :
+#### Links :
+
 https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Card \
 https://developer.mozilla.org/en-US/docs/Web/CSS/@media \
 https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API \
+https://developer.mozilla.org/en-US/docs/Web/CSS/flex
