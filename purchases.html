@@ -171,6 +171,12 @@
             container.appendChild(card);
         }
 
+        // Helper to handle ASCII
+        function htmlDecode(str) {
+            const doc = new DOMParser().parseFromString(str, "text/html");
+            return doc.documentElement.textContent;
+        }
+
         // Initiate async call
         fetchData();
 
