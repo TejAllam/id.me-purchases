@@ -31,6 +31,19 @@
 
         .capitalize-first-letter {
             text-transform: capitalize;
+            text-align: left;
+            padding: 10px;
+            font-size: medium;
+        }
+
+        .card-header {
+            display: flex;
+            font-size: medium;
+            font-weight: bold;
+            text-align: center;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--gap);
         }
 
         .row {
@@ -91,9 +104,26 @@
     }
 
     @media (max-width: 768px) {
-      .extra-info {
-        display: none;
-      }
+        .category-text, .purchase-date-long {
+            display: none !important;
+        }
+        .description {
+            width: 300px;
+        }
+        .push-right {
+            margin-left: auto;
+        }
+        .show-hide {
+            display: none !important;
+        }
+        .extra-info {
+            display: none;
+        }
+        .content {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-evenly;
+        }
       img {
             border-radius: 50%;
             width: 40px;
