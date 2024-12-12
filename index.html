@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID.me Purchases</title>
+
+    <!-- Styles -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #ecf0f1;
+            /* --border-color: #bdc3c7; */
+            --padding: 1rem;
+            --gap: 1rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: var(--padding);
+        }
+
+        .capitalize-first-letter {
+            text-transform: capitalize;
+            text-align: left;
+            padding: 10px;
+            font-size: medium;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap);
+        }
+
+        .card-header {
+            display: flex;
+            font-size: medium;
+            font-weight: bold;
+            text-align: center;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--gap);
+        }
+
+        .row {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-color);
+      padding: var(--padding);
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .row header {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .row .content {
+      flex: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .row footer {
+      text-align: left;
+      font-size: 0.9rem;
+      color: var(--primary-color);
+    }
+
+    .purchase-text {
+            /* font-weight: bold; */
+                display: block !important;
+        }
+
+        .category-text, .purchase-date-long {
+                display: block !important;
+            }
+
+            .button-like-text { 
+                display: inline-block; 
+                padding: 10px 20px; 
+                height: 40px;
+                background-color: #fff;
+                color: var(--primary-color);
+                text-align: center; 
+                font-size: 16px; 
+                font-weight: bold; 
+                border: 2px solid var(--primary-color);
+                border-radius: 5px;
+                cursor: default;
+                text-decoration: none;
+            } 
+                /* transition: background-color 0.3s ease, color 0.3s ease;  */
+
+                /* .button-like-text:hover { 
+                    background-color: var(--primary-color);
+                    color: #fff;
+                } */
+                
+                /* Not a good idea to hard code values like this, but given only 7 values 
+                0:"Food"
+                1:"Technology"
+                2:"Footwear"
+                3:"Travel"
+                4:"Entertainment"
+                5:"Automotive"
+                6:"Apparel"
+                */
+                .Technology { 
+                    --primary-color: red;
+                 }
+
+                 .Food {
+                    --primary-color: green;
+                 }
+
+                 .Footwear {
+                    --primary-color: orange;
+                 }
+
+                 .Apparel {
+                    --primary-color: pink;
+                 }
+
+                 .Entertainment {
+                    --primary-color: #ffca00;
+                 }
+
+                 .Automotive {
+                    --primary-color: black;
+                 }
+
+                 .Travel {
+                    --primary-color: blue;
+                 }
+
+        .description { }
+
+
+        /* Style for Desktop */
+        @media (min-width: 769px) {
+
+      .row {
+        flex-direction: row;
+        align-items: center;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .row header, .row .content, .row footer {
+        margin: 0;
+        flex: 1;
+        padding: 0.5rem;
+        border-right: 1px solid var(--border-color);
+      }
+
+            .row footer {
+                border-right: none;
+                text-align: center;
+            }
+
+            .purchase-text {
+                display: none !important;
+            }
+
+            .content {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-evenly;
+            }
+
+            img {
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+            }
+
+            /* .description {
+                width: 250px;
+            } */
+        }
+
+        @media (max-width: 768px) {
+            .extra-info {
+                display: none;
+            }
+            /* .description {
+                width: 250px;
+            } */
+            .category-text, .purchase-date-long {
+                display: none !important;
+            }
+            .push-right {
+                margin-left: auto;
+            }
+            .show-hide {
+                display: none !important;
+            }
+            .content {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-evenly;
+            }
+            img {
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+
+    <!-- Functionality -->
+    <script>
+
+        // Purchase order constructor 
+        function Purchase(id, location, purchaseDate, category, description, price, name) {
+            // Expecting this to only be a number
+            this.id = Number(id);
+            // Not sure why its named location, maybe location of image to display ? 
+            // Verify if Valid URL or not
+            // Sanitize for extra precaution
+            this.location = location;
+            // Ensure date is correctly formatted, else provide fallback
+            this.purchaseDateShort = new Date(purchaseDate)
+                .toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+            this.purchaseDateLong = new Date(purchaseDate)
+                .toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' });
+            // Can verify if any is within scope of expected elements  
+            this.category = category;
+            // Using htmlDecode to handle ASCII values TODO Length limitations ? 
+            this.description = htmlDecode(description);
+            // Convert to country specific currency 
+            this.price = new Intl.NumberFormat('en-US', 
+                { style: 'currency', currency: 'USD', 
+                maximumFractionDigits: 2, minimumFractionDigits: 2 }).format(price / 100);
+            // Verify only text is displayed  
+            this.name = name.toString();
+        }
+
+        // Fetch JSON Data from external source
+        // TODO - Default time out if taking long ? 
+        // <==JSON==>
+        // category: "Entertainment"
+        // ​description: "Try to copy the ADP pixel, maybe it will reboot the virtual card!"
+        // ​id: 90
+        // ​location: "https://picsum.photos/id/89/200"
+        // ​name: "haptic synthesizing protocol"
+        // ​price: 90159
+        // ​purchaseDate: "2021-03-25T23:00:00.000Z"
+        async function fetchData() {
+            try {
+                const purchaseData = await fetch('https://storage.googleapis.com/marketplace-prod-7728-shop-cdn-e5e2/interview/data.json');
+                const data = await purchaseData.json();
+
+                const categoryList = new Set();
+                const container = document.getElementById('container');
+                data.forEach(purchase => {
+
+                    console.info(purchase);
+
+                    categoryList.add(purchase.category);
+                    const purchaseOrder = new Purchase(purchase.id, purchase.location, purchase.purchaseDate, purchase.category, purchase.description, purchase.price, purchase.name);
+                    createCard(purchaseOrder);
+                });
+                console.log(categoryList);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Card Template - 
+        // Singular load , writes to HTML once data is received 
+        function createCard(purchase) {
+            const cardHtml = `
+                <article tabindex="0" class="card row" id=${purchase.id}">
+                    <header class="card-header">
+                        <img src="${purchase.location}" alt="${purchase.name}">
+                        <h2 class="capitalize-first-letter">${purchase.name}</h2>
+                        <p class="push-right">${purchase.price}</p>
+                    </header>
+                    <div class="content">
+                        <div class="category-text button-like-text ${purchase.category}">${purchase.category}</div>
+                        <div class="description">${purchase.description}</div>
+                    </div>
+                    <footer class="footer">
+                        <div class="purchase-text">
+                            <p><strong>Purchase Date</strong></p>
+                            <p>${purchase.purchaseDateShort}</p>
+                        </div>
+                        <div class="purchase-date-long">
+                            <p>${purchase.purchaseDateLong}</p>
+                        </div>
+                    </footer>
+                </article>
+            `;
+
+            const container = document.getElementById('container');
+            container.insertAdjacentHTML('beforeend', cardHtml);
+        }
+
+        // Helper to handle ASCII
+        function htmlDecode(str) {
+            const doc = new DOMParser().parseFromString(str, "text/html");
+            return doc.documentElement.textContent;
+        }
+
+        // Initiate async call
+        fetchData();
+
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1> Purchases </h1>
+    </header>
+
+    <main>
+        <div id="container" aria-label="List of Purchases">
+
+            <div class="row show-hide" aria-hidden="true">
+                <header>Name</header>
+                <div class="content">
+                    <div class="extra-info">Category</div>
+                    <div class="Location">Description</div>
+                </div>
+                <footer>Purchase Date</footer>
+            </div>
+            
+            <!-- Card Syntax  -->
+            <!-- <article class="card row" tabindex="0">
+                <header class="card-header">
+                    <h2 class="capitalize-first-letter">Name</h2>
+                    <p class="push-right">Price</p>
+                </header>
+                <div class="content">
+                    <div class="description">Description</div>
+                </div>
+                <div class="category-text">Category</div>
+                <footer class="footer">Purchase Date</footer>
+            </article> -->
+
+        </div>
+    </main>
+
+    <footer> The End </footer>
+</body>
+</html>
