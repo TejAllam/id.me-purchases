@@ -12,7 +12,7 @@ Link -> https://tejallam.github.io/id.me-purchases/
 ![image](https://github.com/user-attachments/assets/54682306-0705-4685-bd32-a59afdfa4a4d)
 
 
-### Analysis : 
+### Design : 
 
   - Went with native HTML/CSS/JS
   - Didn't use any Frameworks, could have used Angular but didn't want to complicate.
@@ -34,7 +34,12 @@ Link -> https://tejallam.github.io/id.me-purchases/
   - Went with some primary colors for the 'Category' section, should have ensured these are within acceptable Accessibility contrast ratios.
   
   
-  
+### Performance : 
+
+![image](https://github.com/user-attachments/assets/0d6d3c8d-09ff-426a-b9a4-8d5918ae3b66)
+
+![image](https://github.com/user-attachments/assets/3b3d8be9-d35d-4a52-acf2-fcc13f9962d2)
+
 
 
 
