@@ -33,46 +33,63 @@
             text-transform: capitalize;
         }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-        }
+        .row {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-color);
+      padding: var(--padding);
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        .item {
-            border: 1px solid black;
-            margin: 10px;
-            padding: 10px;
-        }
+    .row header {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
 
-        /* Media query for desktop */
-        @media (min-width: 768px) {
-            .container {
-                display: table;
-                width: 100%;
-            }
+    .row .content {
+      flex: 1;
+      margin-bottom: 0.5rem;
+    }
 
-            .item {
-                display: table-cell;
-                border: 1px solid black;
-                border-collapse: collapse;
-                padding: 10px;
-            }
+    .row footer {
+      text-align: right;
+      font-size: 0.9rem;
+      color: var(--primary-color);
+    }
 
-            .card-header {
-                display: flex;
-                align-items: center;
-            }
+    @media (min-width: 769px) {
+      .table {
+        display: flex;
+        flex-direction: column;
+      }
 
-            .card-image {
-                width: 50px;
-                height: 50px;
-                margin-right: 10px;
-            }
+      .row {
+        flex-direction: row;
+        align-items: center;
+        border-radius: 0;
+        box-shadow: none;
+      }
 
-            .card-title {
-                margin: 0;
-            }
-        }
+      .row header, .row .content, .row footer {
+        margin: 0;
+        flex: 1;
+        padding: 0.5rem;
+        border-right: 1px solid var(--border-color);
+      }
+
+      .row footer {
+        border-right: none;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .extra-info {
+        display: none;
+      }
+    }
     </style>
 
     <!-- Functionality -->
@@ -157,32 +174,32 @@ function Purchase(id, location, purchaseDate, category, description, price, name
     </header>
 
     <main>
-        <div id="container">
+        <div id="container" class="table" aria-label="List of Purchases">
 
-            <article class="card">
-                <header>
-                  <h2>Header Content</h2>
-                </header>
-            
-                <img width="75px;" height="75px;"
-                  src="https://picsum.photos/id/26/200"
-                  alt="Alt Text" />
-                <div class="content description">
-                  <p>
-                    We need to parse the mobile SMTP program!
-                  </p>
+            <div class="row show-hide" aria-hidden="true">
+                <header>Name</header>
+                <div class="content">
+                    <div class="extra-info">Category</div>
+                    <div class="Location">Description</div>
                 </div>
-                <footer>
-                    Price : $69734
-                    purchaseDate: "2021-01-21T00:00:00.000Z"
-                </footer>
-              </article>
+                <footer>Purchase Date</footer>
+            </div>
+
+            <!-- <article class="card row" tabindex="0">
+                <header class="card-header">
+                    <h2 class="capitalize-first-letter">Name</h2>
+                    <p class="push-right">Price</p>
+                </header>
+                <div class="content">
+                    <div class="description">Description</div>
+                </div>
+                <div class="category-text">Category</div>
+                <footer class="footer">Purchase Date</footer>
+            </article> -->
 
         </div>
     </main>
 
-    <footer>
-        
-    </footer>
+    <footer> The End </footer>
 </body>
 </html>
