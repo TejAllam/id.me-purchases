@@ -28,10 +28,55 @@
             color: var(--primary-color);
             padding: var(--padding);
         }
+
+        .capitalize-first-letter {
+            text-transform: capitalize;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item {
+            border: 1px solid black;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        /* Media query for desktop */
+        @media (min-width: 768px) {
+            .container {
+                display: table;
+                width: 100%;
+            }
+
+            .item {
+                display: table-cell;
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 10px;
+            }
+
+            .card-header {
+                display: flex;
+                align-items: center;
+            }
+
+            .card-image {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+
+            .card-title {
+                margin: 0;
+            }
+        }
     </style>
 
     <!-- Functionality -->
-    <script >
+    <script>
         // Fetch JSON Data from external source
         async function fetchData() {
             try {
@@ -44,12 +89,15 @@
 
                     // Write content to DOM 
                     const card = document.createElement('article');
+                    card.classList.add('card');
 
                     const header = document.createElement('header');
+                    header.classList.add('card-header');
                     const title = document.createElement('h2');
                     const price = document.createElement('p');
 
                     title.textContent = purchase.name;
+                    title.classList.add('capitalize-first-letter');
                     price.textContent = purchase.price;
 
                     header.appendChild(title);
@@ -64,6 +112,7 @@
                     header.prepend(image);
 
                     const contentDiv = document.createElement('div');
+                    contentDiv.classList.add('content');
                     const paragraph = document.createElement('p');
                     paragraph.textContent = purchase.description;
                     contentDiv.appendChild(paragraph);
@@ -88,6 +137,7 @@
     </script>
 </head>
 <body>
+
     <header>
         <h1> Purchases </h1>
     </header>
