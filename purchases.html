@@ -77,6 +77,17 @@
 
     <!-- Functionality -->
     <script>
+
+function Purchase(id, location, purchaseDate, category, description, price, name) {
+            this.id = id;
+            this.location = location;
+            this.purchaseDate = new Date(purchaseDate).toDateString(); // Format Date
+            this.category = category;
+            this.description = description;
+            this.price = price;
+            this.name = name;
+        }
+
         // Fetch JSON Data from external source
         async function fetchData() {
             try {
@@ -87,50 +98,68 @@
                 data.forEach(purchase => {
                     console.info(purchase);
 
-                    // Write content to DOM 
-                    const card = document.createElement('article');
-                    card.classList.add('card');
+                    const purchaseOrder = new Purchase(purchase.id, purchase.location, purchase.purchaseDate, purchase.category, purchase.description, purchase.price, purchase.name);
+                    createCard(purchaseOrder);
+                    //   const card = document.createElement('article');
 
-                    const header = document.createElement('header');
-                    header.classList.add('card-header');
-                    const title = document.createElement('h2');
-                    const price = document.createElement('p');
+                    //   card.classList.add('card');
 
-                    title.textContent = purchase.name;
-                    title.classList.add('capitalize-first-letter');
-                    price.textContent = purchase.price;
+                    //     const title = document.createElement('h3');
+                    //     title.textContent = purchase.title;
 
-                    header.appendChild(title);
-                    header.appendChild(price);
-                    card.appendChild(header);
+                    //     const description = document.createElement('p');
+                    //     description.textContent = purchase.description;
 
-                    const image = document.createElement('img');
-                    image.style.width = '60px';
-                    image.style.height = '65px';
-                    image.src = purchase.location;
-                    image.alt = purchase.name;
-                    header.prepend(image);
-
-                    const contentDiv = document.createElement('div');
-                    contentDiv.classList.add('content');
-                    const paragraph = document.createElement('p');
-                    paragraph.textContent = purchase.description;
-                    contentDiv.appendChild(paragraph);
-                    card.appendChild(contentDiv);
-
-                    const footer = document.createElement('footer');
-
-                    footer.textContent = purchase.purchaseDate;
-                    card.appendChild(footer);
-
-                    // Appending card to a container
-                    const container = document.getElementById('container');
-                    container.appendChild(card);
+                    //     card.appendChild(title);
+                    //     card.appendChild(description);
+                    //     container.appendChild(card);
                 });
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
+
+        function createCard(purchase) {
+
+            const card = document.createElement('article');
+            card.classList.add('card');
+
+            const header = document.createElement('header');
+            header.classList.add('card-header');
+            const title = document.createElement('h2');
+            const price = document.createElement('p');
+
+            title.textContent = purchase.name;
+            title.classList.add('capitalize-first-letter');
+            price.textContent = purchase.price;
+
+            header.appendChild(title);
+            header.appendChild(price);
+            card.appendChild(header);
+
+            const image = document.createElement('img');
+            image.style.width = '60px';
+            image.style.height = '65px';
+            image.src = purchase.location;
+            image.alt = purchase.name; // Consider adding a more descriptive alt text
+            header.prepend(image);
+
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('content');
+            const paragraph = document.createElement('p');
+            paragraph.textContent = purchase.description;
+            contentDiv.appendChild(paragraph);
+            card.appendChild(contentDiv);
+
+            const footer = document.createElement('footer');
+
+            footer.textContent = purchase.purchaseDate;
+            card.appendChild(footer);
+
+            // Append the card to a specific container, e.g., a div with the ID 'card-container'
+            const container = document.getElementById('container');
+            container.appendChild(card);
+            }
 
         // Initiate async call
         fetchData()
