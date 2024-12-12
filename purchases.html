@@ -79,13 +79,23 @@
     <script>
 
 function Purchase(id, location, purchaseDate, category, description, price, name) {
-            this.id = id;
+            // Expecting this to only be a number
+            this.id = Number(id);
+            // Not sure why its named location, maybe location of image to display ? 
+            // Verify if Valid URL or not
+            // Sanitize for extra precaution
             this.location = location;
-            this.purchaseDate = new Date(purchaseDate).toDateString(); // Format Date
+            // Ensure date is correctly formatted, else provide fallback
+            this.purchaseDate = new Date(purchaseDate).toDateString();
+            // Can verify if any is out within scope of expected elements  
             this.category = category;
+            // Length limitations ? 
             this.description = description;
-            this.price = price;
-            this.name = name;
+            // Convert to country specific currency, in this case US 
+            this.price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+            // Verify only text is displayed  
+            this.name = name.toString();
+
         }
 
         // Fetch JSON Data from external source
@@ -100,19 +110,6 @@ function Purchase(id, location, purchaseDate, category, description, price, name
 
                     const purchaseOrder = new Purchase(purchase.id, purchase.location, purchase.purchaseDate, purchase.category, purchase.description, purchase.price, purchase.name);
                     createCard(purchaseOrder);
-                    //   const card = document.createElement('article');
-
-                    //   card.classList.add('card');
-
-                    //     const title = document.createElement('h3');
-                    //     title.textContent = purchase.title;
-
-                    //     const description = document.createElement('p');
-                    //     description.textContent = purchase.description;
-
-                    //     card.appendChild(title);
-                    //     card.appendChild(description);
-                    //     container.appendChild(card);
                 });
             } catch (error) {
                 console.error('Error fetching data:', error);
