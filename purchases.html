@@ -117,46 +117,31 @@ function Purchase(id, location, purchaseDate, category, description, price, name
         }
 
         function createCard(purchase) {
+            const cardHTML = `
+                <article class="card">
+                    <header class="card-header">
+                        <img src="${purchase.location}" alt="${purchase.name}" style="width: 60px; height: 65px;" defer>
+                        <h2 class="capitalize-first-letter">${purchase.name}</h2>
+                        <p>${purchase.price}</p>
+                    </header>
+                    <div class="content">
+                        <p>${purchase.description}</p>
+                    </div>
+                    <footer>${purchase.purchaseDate}</footer>
+                </article>
+            `;
 
-            const card = document.createElement('article');
-            card.classList.add('card');
+            // Create a DOM element from the template HTML string
+            const template = document.createElement('template');
+            template.innerHTML = cardHTML.trim();
+            
+            const card = template.content.firstChild;
 
-            const header = document.createElement('header');
-            header.classList.add('card-header');
-            const title = document.createElement('h2');
-            const price = document.createElement('p');
-
-            title.textContent = purchase.name;
-            title.classList.add('capitalize-first-letter');
-            price.textContent = purchase.price;
-
-            header.appendChild(title);
-            header.appendChild(price);
-            card.appendChild(header);
-
-            const image = document.createElement('img');
-            image.style.width = '60px';
-            image.style.height = '65px';
-            image.src = purchase.location;
-            image.alt = purchase.name; // Consider adding a more descriptive alt text
-            header.prepend(image);
-
-            const contentDiv = document.createElement('div');
-            contentDiv.classList.add('content');
-            const paragraph = document.createElement('p');
-            paragraph.textContent = purchase.description;
-            contentDiv.appendChild(paragraph);
-            card.appendChild(contentDiv);
-
-            const footer = document.createElement('footer');
-
-            footer.textContent = purchase.purchaseDate;
-            card.appendChild(footer);
-
-            // Append the card to a specific container, e.g., a div with the ID 'card-container'
+            // Append card to container
             const container = document.getElementById('container');
             container.appendChild(card);
-            }
+        }
+
 
         // Initiate async call
         fetchData()
