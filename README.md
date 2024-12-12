@@ -27,6 +27,7 @@ Link -> https://tejallam.github.io/id.me-purchases/
 
 ### Improvements : 
 
+  - When all images are loaded at once, there is an impact on performance, this could be mitigated by pagination or sequwntal load once elements come into view.  
   - CSS, could have minified and organized styles.
   - JS Functionality only 3 major logic blocks. Kept it simple, but tests would have helped.
   - Table column header alignment, didn't have time but could have used CSS Grid if it would help.
@@ -35,6 +36,8 @@ Link -> https://tejallam.github.io/id.me-purchases/
   
   
 ### Performance : 
+
+![image](https://github.com/user-attachments/assets/98fd5314-5329-41a2-b09a-630bf6e4564f)
 
 ![image](https://github.com/user-attachments/assets/0d6d3c8d-09ff-426a-b9a4-8d5918ae3b66)
 
